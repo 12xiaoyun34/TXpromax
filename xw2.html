@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>陨星之梦</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to bottom, #e2e8f0, #f1f5f9);
+        }
+        h1 {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .gallery-container {
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        .gallery-item {
+            scroll-snap-align: start;
+            min-width: 70%; /* 减小图片容器宽度 */
+            transition: transform 0.3s ease-in-out;
+        }
+        .gallery-item:hover {
+            transform: scale(1.02);
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* 自定义滚动条 */
+        .gallery-container::-webkit-scrollbar {
+            height: 6px;
+        }
+        .gallery-container::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+        .gallery-container::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 10px;
+        }
+        .gallery-container::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+    </style>
+</head>
+<body class="text-center">
+    <h1 class="text-5xl font-extrabold text-blue-600 mt-10 mb-5">第一次大型团建</h1>
+    <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-lg fade-in">
+        <p class="text-lg text-gray-700 leading-relaxed">
+            陨星之梦创作仍在继续，预计将于暑假结束后发布于平台<br>
+            陨星之梦是由队员小云为主要灵感来源的校园型修仙题材<br>
+            陨星之梦由团队文学社为主进行编写，预计总字数在40万<br>
+            字左右，将发布于fanqie小说，这将是随后小队经济的重<br>
+            要来源
+        </p>
+    </div>
+
+    <!-- 在 <body> 标签内，最外层添加返回按钮 -->
+    <div class="fixed top-4 left-4 z-50">
+        <button onclick="window.location.href='index.html'" 
+                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+            返回首页
+        </button>
+    </div>
+    </script>
+</body>
+</html>

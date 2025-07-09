@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>第一次大型团建</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to bottom, #e2e8f0, #f1f5f9);
+        }
+        h1 {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .gallery-container {
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        .gallery-item {
+            scroll-snap-align: start;
+            min-width: 70%; /* 减小图片容器宽度 */
+            transition: transform 0.3s ease-in-out;
+        }
+        .gallery-item:hover {
+            transform: scale(1.02);
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* 自定义滚动条 */
+        .gallery-container::-webkit-scrollbar {
+            height: 6px;
+        }
+        .gallery-container::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+        .gallery-container::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 10px;
+        }
+        .gallery-container::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+    </style>
+</head>
+<body class="text-center">
+    <h1 class="text-5xl font-extrabold text-blue-600 mt-10 mb-5">第一次大型团建</h1>
+    <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-lg fade-in">
+        <p class="text-lg text-gray-700 leading-relaxed">
+            2025年5月1日天气小队积极参与科技节活动，本届科技节我们分配到<br>
+            的项目为"垂直升空水火箭挑战赛"和"个人飞行赛"团队成员积极练习<br>
+            在2025年5月17日，我们成功在"垂直升空水火箭挑战赛"项目中喜获<br>
+            二等奖，又于2025年5月30日，成功在"个人飞行赛"项目中喜获二等<br>
+            奖，这不光是一次个人的荣耀，也是团队的荣耀，因此我们将这次活<br>
+            动称为第一次小队大型团建
+        </p>
+    </div>
+
+    <!-- 在 <body> 标签内，最外层添加返回按钮 -->
+    <div class="fixed top-4 left-4 z-50">
+        <button onclick="window.location.href='index.html'" 
+                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+            返回首页
+        </button>
+    </div>
+
+    <!-- 照片画廊区域 -->
+    <div class="mt-10 px-4">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6 fade-in">活动照片</h2>
+        <div class="gallery-container flex space-x-4 pb-6 fade-in" id="photoGallery">
+            <div class="gallery-item rounded-xl overflow-hidden shadow-2xl">
+                <img src="PNG/火箭.jpg" alt="火箭" class="w-full h-auto object-cover" style="max-height: 280px;"> <!-- 减小图片最大高度 -->
+                <div class="bg-white p-3"> <!-- 减小文字区域内边距 -->
+                    <p class="font-medium text-gray-800">东风一号初始</p>
+                </div>
+            </div>
+            <div class="gallery-item rounded-xl overflow-hidden shadow-2xl">
+                <img src="PNG/设计图.jpg" alt="设计图" class="w-full h-auto object-cover" style="max-height: 280px;">
+                <div class="bg-white p-3">
+                    <p class="font-medium text-gray-800">设计图</p>
+                </div>
+            </div>
+            <div class="gallery-item rounded-xl overflow-hidden shadow-2xl">
+                <img src="PNG/设计图2.png" alt="设计图2" class="w-full h-auto object-cover" style="max-height: 280px;">
+                <div class="bg-white p-3">
+                    <p class="font-medium text-gray-800">设计图2</p>
+                </div>
+            </div>
+            <div class="gallery-item rounded-xl overflow-hidden shadow-2xl">
+                <img src="PNG/设计图3.jpg" alt="设计图3" class="w-full h-auto object-cover" style="max-height: 280px;">
+                <div class="bg-white p-3">
+                    <p class="font-medium text-gray-800">设计图3</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 画廊导航 -->
+    <div class="flex justify-center mt-4 mb-12 fade-in">
+        <button id="prevBtn" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full mr-3 transition-all duration-300 transform hover:scale-105">
+            <i class="fa fa-angle-left mr-1"></i> 上一张
+        </button>
+        <button id="nextBtn" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full transition-all duration-300 transform hover:scale-105">
+            下一张 <i class="fa fa-angle-right ml-1"></i>
+        </button>
+    </div>
+
+    <script>
+        // 画廊滑动控制
+        document.addEventListener('DOMContentLoaded', () => {
+            const gallery = document.getElementById('photoGallery');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            // 初始化图片淡入效果
+            galleryItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transition = 'opacity 0.5s ease-in-out';
+                }, 100 * (index + 1));
+            });
+            
+            // 计算每次滚动的距离
+            const scrollAmount = galleryItems[0].offsetWidth + 16; // 宽度 + 间距
+            
+            // 下一张按钮
+            nextBtn.addEventListener('click', () => {
+                gallery.scrollBy({
+                    left: scrollAmount,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // 上一张按钮
+            prevBtn.addEventListener('click', () => {
+                gallery.scrollBy({
+                    left: -scrollAmount,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // 移动端触摸滑动
+            let startX;
+            let scrollLeft;
+            
+            gallery.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                scrollLeft = gallery.scrollLeft;
+            }, { passive: true });
+            
+            gallery.addEventListener('touchmove', (e) => {
+                if (!startX) return;
+                const x = e.touches[0].clientX;
+                const walk = (x - startX) * 2; // 倍增滑动速度
+                gallery.scrollLeft = scrollLeft - walk;
+            }, { passive: true });
+            
+            gallery.addEventListener('touchend', () => {
+                startX = null;
+            }, { passive: true });
+            
+            // 导航按钮显示/隐藏控制
+            gallery.addEventListener('scroll', () => {
+                prevBtn.classList.toggle('opacity-50', gallery.scrollLeft === 0);
+                nextBtn.classList.toggle('opacity-50', 
+                    gallery.scrollLeft + gallery.clientWidth >= gallery.scrollWidth - 10);
+            });
+        });
+    </script>
+</body>
+</html>
